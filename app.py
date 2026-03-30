@@ -34,7 +34,10 @@ def normalize_whatsapp_number(num: str) -> str:
         num = "whatsapp:" + num
     return num
 
-
+@app.route("/", methods=["GET"])
+def health():
+    return {"status": "alive"}
+    
 @app.route("/send", methods=["POST"])
 def send_message():
     data = request.get_json(silent=True) or {}
@@ -68,11 +71,6 @@ def send_message():
             "status": "error",
             "error": str(e)
         }), 500
-
-
-@app.route("/health", methods=["GET"])
-def health():
-    return {"status": "alive"}
 
 
 if __name__ == "__main__":
